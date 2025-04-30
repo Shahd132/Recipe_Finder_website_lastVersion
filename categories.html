@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="categories.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="cookhub">
+                <img src="imgs/WhatsApp Image 2025-04-02 at 22.45.22_80c2abde.jpg"/>
+                <h1>CookHub</h1>
+            </div>
+            <div class="about">
+                <a href="Home.html">Home</a>
+                <a href="Recipe_List_Page.html">Recipes</a>
+                <a id="Favorits" href="Favourite Page.html"></a>
+                <a href="SearchPage.html">Find recipe</a>
+                <a id="manage_recipes" href="Admin.html"></a>
+            </div>
+            <div class="about">
+                <button id="logout"><i class="fa-solid fa-arrow-right"></i> LogOut</button>
+            </div>
+        </nav>
+        <div class="content">
+            <h1 class="category-title">Explore Recipes by Category 🍽️</h1>
+            
+            <div class="courses">
+                <div class="appetizer">
+                    <img src="imgs/appetizer (1).webp" alt="">
+                    <h2>🥗 Appetizer</h2>
+                    <button id="appetizer"class="viewrecipes">View Recipes</button>
+                </div>
+                <div class="dessert">
+                    <img src="imgs/dessert.webp" alt="">
+                    <h2>🍰 Dessert</h2>
+                    <button id="dessert" class="viewrecipes">View Recipes</button>
+                </div>
+                <div class="maincourse">
+                    <img src="imgs/maincourse.webp" alt="">
+                    <h2>🍛 Main Course</h2>
+                    <button id="main" class="viewrecipes">View Recipes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let user = localStorage.getItem("user");
+        if(!user) {
+            window.location.href ='Login.html';
+        }   
+        let userparse = JSON.parse(user);
+        if(userparse.is_admin === "true") {
+            document.getElementById("manage_recipes").innerHTML = "Manage recipes";
+        } else {
+            document.getElementById("Favorits").innerHTML = "Favorites";
+        }
+        
+        let logout = document.getElementById("logout");
+        logout.addEventListener('click', () => {
+            localStorage.removeItem("user_data");
+            window.location.href = "Login.html";
+        });
+    </script>
+    <script src="categories.js"></script>
+</body>
+</html>

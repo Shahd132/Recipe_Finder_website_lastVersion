@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <link rel="stylesheet" href="SearchPage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="cookhub">
+                <img src="imgs/WhatsApp Image 2025-04-02 at 22.45.18_7308d5b7.jpg"> 
+                <h1>CookHub</h1>
+            </div>
+            <div class="about">
+                <a href="Home.html">Home</a>
+                <a href="Recipe_List_Page.html">Recipes</a>
+                <a id="Favorits" href="Favourite Page.html"></a>
+                <a href="SearchPage.html">Find recipe</a>
+                <a id="manage_recipes" href="Admin.html"></a>
+            </div>
+            <div class="about">
+                <button id="logout"><i class="fa-solid fa-arrow-right"></i> LogOut</button>
+            </div>
+        </nav>
+
+        <h1 class="finder">Recipe Finder</h1>
+
+        <div class="search-box" id="searchResults">
+            <input type="text" id="searchInput" placeholder="search recipes...">
+            <button onclick="handleSearch()">Search</button>
+        </div>
+        <div class="recipes" id="resultsContainer"></div>
+    <script src="SearchPage.js" defer></script>
+</body>
+</html>

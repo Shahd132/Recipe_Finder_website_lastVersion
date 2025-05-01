@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
- 
+
   const recipePhotoInput = document.getElementById("recipe-photo");
   const imagePreview = document.getElementById("image-preview");
   const ingredientsList = document.getElementById("ingredients-list");
@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const recipeForm = document.getElementById("recipe-form");
 
   let storedRecipe = JSON.parse(localStorage.getItem("selectedRecipe"));
+  let caloriesPerIngredient = JSON.parse(localStorage.getItem("calories")) || {};
 
   if (storedRecipe) {
     document.getElementById("recipe-name").value = storedRecipe.name;
@@ -17,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
     ingredientsList.innerHTML = "";
     storedRecipe.ingredients.forEach(ingredient => {
       const [quantity, unit] = parseQuantity(ingredient.quantity);
-      
+      const cal = ingredient.calories || caloriesPerIngredient[ingredient.name] || 0;
+
       const ingredientDiv = document.createElement("div");
       ingredientDiv.classList.add("ingredient");
       ingredientDiv.innerHTML = `
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <option ${unit === 'cup' ? 'selected' : ''}>cup</option>
         </select>
         <input type="text" placeholder="Ingredient Name" value="${ingredient.name}" required>
+        <input type="number" placeholder="Calories per ingredient" value="${cal}" required>
         <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
       `;
       ingredientsList.appendChild(ingredientDiv);
@@ -66,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <option>cup</option>
       </select>
       <input type="text" placeholder="Ingredient Name" required>
+      <input type="number" placeholder="Calories per ingredient" required>
       <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
     `;
     ingredientsList.appendChild(ingredientDiv);
@@ -115,14 +119,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const quantity = div.children[0].value;
         const unit = div.children[1].value;
         const name = div.children[2].value;
+        const calories = parseInt(div.children[3].value) || 0;
+
+        // ✅ يتم تحديث السعرات دومًا في localStorage
+        caloriesPerIngredient[name] = calories;
+
         return {
           id: Math.random(),
           name,
-          quantity: quantity + " " + unit
+          quantity: quantity + " " + unit,
+          calories
         };
       }),
       instructions: Array.from(document.querySelectorAll("#directions-list textarea")).map(textarea => textarea.value)
     };
+
+    
+    localStorage.setItem("calories", JSON.stringify(caloriesPerIngredient));
 
     let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
     const recipeIndex = recipes.findIndex(r => r.id === storedRecipe.id);

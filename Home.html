@@ -21,6 +21,7 @@
         <a id="Favorits" href="Favourite Page.html"></a>
         <a href="SearchPage.html">Find recipe</a>
         <a id="manage_recipes" href="Admin.html"></a>
+        <a href="recipesbycategory.html" >Categories</a>
     </div>
         <div class="about">
             <button id="logout"><i class="fa-solid fa-user"></i>LogOut</button>
@@ -133,15 +134,21 @@
     window.location.href ='Login.html';
 }   
      let userparse = JSON.parse(user);
+     let favoritesLink = document.getElementById("Favorits");
+     let manageRecipesLink = document.getElementById("manage_recipes");
+
      if(userparse.is_admin === "true"){
         let manage_recipes = document.getElementById("manage_recipes").innerHTML="Manage recipes";
+        favoritesLink.style.display = "none";
      }
      else{
         let Favorits= document.getElementById("Favorits").innerHTML = "Favorits";
+        let manageRecipesLink = document.getElementById("manage_recipes");
+
      }
 let logout = document.getElementById("logout");
      logout.addEventListener('click', ()=>{
-        localStorage.removeItem("user_data");
+        localStorage.removeItem("user");
         window.location.href="Login.html"
      })
 </script>

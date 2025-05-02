@@ -18,9 +18,10 @@
     <div class="about">
       <a href="Home.html">Home</a>
       <a href="Recipe_List_Page.html">Recipes</a>
-      <a href="Favourite Page.html">Favorits</a>
+      <a id="Favorits" href="Favourite Page.html"></a>
       <a href="SearchPage.html">Find recipe</a>
-      <a href="Admin.html">Manage recipes</a>
+      <a id="manage_recipes" href="Admin.html"></a>
+      <a href="recipesbycategory.html" >Categories</a>
     </div>
     <div class="about">
       <button><i class="fa-solid fa-user"></i>sign up</button>
@@ -84,6 +85,27 @@
       </form>
     </div>
   </main>
+  <script>      let user = localStorage.getItem("user");
+    if(!user)
+{
+  window.location.href ='Login.html';
+}   
+   let userparse = JSON.parse(user);
+   let favoritesLink = document.getElementById("Favorits");
+   let manageRecipesLink = document.getElementById("manage_recipes");
+   if(userparse.is_admin === "true"){
+      let manage_recipes = document.getElementById("manage_recipes").innerHTML="Manage recipes";
+      favoritesLink.style.display = "none";
+   }
+   else{
+      let Favorits= document.getElementById("Favorits").innerHTML = "Favorits";
+      manageRecipesLink.style.display = "none";
+   }
+let logout = document.getElementById("logout");
+   logout.addEventListener('click', ()=>{
+      localStorage.removeItem("user");
+      window.location.href="Login.html"
+   })</script>
   <script src="EditReceipe.js"></script>
 </body>
 </html>
